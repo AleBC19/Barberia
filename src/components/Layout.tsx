@@ -3,16 +3,16 @@ import barber from '../assets/barber.jpg'
 
 const Layout = () => {
   return (
-    <div className='grid grid-cols-2'>
-      <main className=''>
-        <div className='bg-red-400 h-screen'>
-          <img src={barber} alt="Imagen barber" className='h-screen' />
+    <div className='grid md:grid-cols-2'>
+      <section className=''>
+        <div>
+          <img src={barber} alt="Imagen barber" className='md:h-screen' />
         </div>
-      </main>
+      </section>
 
-      <div>
+      <section>
         <Outlet />
-      </div>
+      </section>
       
     </div>
   )
