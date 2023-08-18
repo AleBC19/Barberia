@@ -1,12 +1,26 @@
+import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axiosClient from '../config/axiosClient'
+import Alert from '../components/Alert'
 
 const Index = () => {
-  /* useEffect(() => {
-    const services = () => axiosClient('/services')
-      .then( ({data}) => console.log(data) )
-      .catch( err => console.error(err) )
-    services()
-  }, []) */
+  const emailRef = createRef<HTMLInputElement>()
+  const passwordRef = createRef<HTMLInputElement>()
+
+  const [errors, setErrors] = useState([])
+
+  const handleSubmit = async (evt: React.SyntheticEvent) => {
+    evt.preventDefault()
+
+    const datos = {
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+    }
+
+    axiosClient.post('/login', datos)
+      .then(({ data }) => localStorage.setItem('AUTH_TOKEN', data.token))
+      .catch(error => setErrors(Object.values(error.response.data.errors)))
+  }
 
   return (
     <div className='m-5'>
@@ -15,7 +29,9 @@ const Index = () => {
         <p className='text-center m-10 '>Inicia Sesion con tus datos</p>  
       </div>
 
-      <form>
+      { errors ? errors.map((error, i) => <Alert key={i}>{error}</Alert>) : null }
+
+      <form onSubmit={handleSubmit}>
         <div className='flex justify-between items-center '>
           <label 
             htmlFor="email"
@@ -26,6 +42,7 @@ const Index = () => {
             id='email'
             name='email'
             placeholder='Ingrese su Email'
+            ref={emailRef}
             className='rounded-md text-black w-full p-2' />
         </div>
         <div className='mt-3 flex justify-between'>
@@ -34,9 +51,10 @@ const Index = () => {
             className='flex-none w-20'>Password: 
           </label>
           <input 
-            type="text"
+            type="password"
             id='password'
             name='password'
+            ref={passwordRef}
             placeholder='Ingrese su contraseña'
             className='rounded-md text-black w-full p-2' />
         </div>

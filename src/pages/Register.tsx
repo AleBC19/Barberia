@@ -1,25 +1,38 @@
 import { Link } from 'react-router-dom'
 import { createRef, useState } from 'react'
+import axiosClient from '../config/axiosClient'
+import Alert from '../components/Alert'
 
 const Register = () => {
   const emailRef = createRef<HTMLInputElement>()
-  const usernameRef = createRef<HTMLInputElement>()
+  const nameRef = createRef<HTMLInputElement>()
   const phoneNumberRef = createRef<HTMLInputElement>()
   const passwordRef = createRef<HTMLInputElement>()
   const passwordConfirmationRef = createRef<HTMLInputElement>()
+
+  const [errors, setErrors] = useState([])
 
   const handleSubmit = async (evt: React.SyntheticEvent) => {
     evt.preventDefault()
 
     const datos = {
       email: emailRef.current?.value,
-      username: usernameRef.current?.value,
+      name: nameRef.current?.value,
       phone_number: phoneNumberRef.current?.value,
       password: passwordRef.current?.value,
       password_confirmation: passwordConfirmationRef.current?.value
     }
 
-    console.log(datos)
+    axiosClient.post('/register', datos)
+      .then(({ data }) => console.log(data.token))
+      .catch(error => setErrors(Object.values(error.response.data.errors)))
+
+    /* try {
+      const response = await axiosClient.post('/register', datos)
+      console.log(response)
+    } catch (error: AxiosError) {
+      setErrors(Object.values(error.response.data.errors))
+    } */
   }
 
   return (
@@ -29,8 +42,10 @@ const Register = () => {
         <p className='text-center m-10 '>Cree una Cuenta para Agendar una Cita</p>  
       </div>
 
+      { errors ? errors.map((error, i) => <Alert key={i}>{error}</Alert>) : null }
+
       <form onSubmit={handleSubmit}>
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-5 mt-4'>
           <div className='flex justify-between items-center gap-2'>
             <label 
               htmlFor="email"
@@ -52,8 +67,8 @@ const Register = () => {
             <input 
               type="text"
               id='username'
-              name='username'
-              ref={usernameRef}
+              name='name'
+              ref={nameRef}
               placeholder='Ingrese su Nombre de Usuario'
               className='rounded-md text-black w-full p-2'/>
           </div>
