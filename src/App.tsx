@@ -1,7 +1,6 @@
-
 function App() {
   return (
-    <h1>BARBER</h1>
+    <p>Hii</p>
   )
 }
 

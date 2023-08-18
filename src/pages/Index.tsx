@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom'
 
 const Index = () => {
+  /* useEffect(() => {
+    const services = () => axiosClient('/services')
+      .then( ({data}) => console.log(data) )
+      .catch( err => console.error(err) )
+    services()
+  }, []) */
+
   return (
     <div className='m-5'>
       <div className='pt-12'>
