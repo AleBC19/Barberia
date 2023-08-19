@@ -15,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (evt: React.SyntheticEvent) => {
     evt.preventDefault()
 
-    const datos = {
+    const datos: AuthData = {
       email: emailRef.current?.value,
       name: nameRef.current?.value,
       phone_number: phoneNumberRef.current?.value,
@@ -23,105 +23,103 @@ const Register = () => {
       password_confirmation: passwordConfirmationRef.current?.value
     }
 
-    axiosClient.post('/register', datos)
-      .then(({ data }) => console.log(data.token))
-      .catch(error => setErrors(Object.values(error.response.data.errors)))
-
-    /* try {
-      const response = await axiosClient.post('/register', datos)
-      console.log(response)
-    } catch (error: AxiosError) {
+    try {
+      const { data } = await axiosClient.post('/register', datos)
+      console.log(data.token)
+    } catch (error) {
       setErrors(Object.values(error.response.data.errors))
-    } */
+    }
   }
 
   return (
-    <div className='m-5'>
-      <div className='pt-12'>
-        <h2 className='text-5xl font-bold text-center'>Crear Cuenta</h2>
-        <p className='text-center m-10 '>Cree una Cuenta para Agendar una Cita</p>  
+    <div className='flex flex-col justify-center items-center'>
+      <div className='py-10 mb-4'>
+        <h2 className='text-5xl font-black text-center'>Crear una Cuenta</h2>
+        <p className='text-center m-5 font-semibold'>Inicia Sesion con tus datos</p>  
       </div>
 
       { errors ? errors.map((error, i) => <Alert key={i}>{error}</Alert>) : null }
 
-      <form onSubmit={handleSubmit}>
-        <div className='flex flex-col gap-5 mt-4'>
-          <div className='flex justify-between items-center gap-2'>
+      <div className='lg:w-3/5 px-2'>
+        <form onSubmit={handleSubmit}>
+          <div className='mb-5'>
             <label 
               htmlFor="email"
-              className='flex-none w-20'>Email:
-            </label>
+              className='uppercase font-semibold'
+            >Email:</label>
             <input 
-              type="email"
+              type="text"
               id='email'
               name='email'
-              ref={emailRef}
               placeholder='Ingrese su Email'
-              className='rounded-md text-black w-full p-2' />
-          </div>
-          <div className='flex justify-between items-center gap-2'>
+              ref={emailRef}
+              className='rounded-md text-black w-full p-2 mt-2' />
+          </div>          
+          <div className='mb-5'>
             <label 
               htmlFor="username"
-              className='flex-none w-20'>Nombre de Usuario:
-            </label>
+              className='uppercase font-semibold'
+            >Username:</label>
             <input 
               type="text"
               id='username'
               name='name'
-              ref={nameRef}
               placeholder='Ingrese su Nombre de Usuario'
-              className='rounded-md text-black w-full p-2'/>
+              ref={nameRef}
+              className='rounded-md text-black w-full p-2 mt-2' />
           </div>
-          <div className='flex justify-between items-center gap-2'>
+          <div className='mb-5'>
             <label 
               htmlFor="phone_number"
-              className='flex-none w-20 block'>Teléfono:
-            </label>
+              className='uppercase font-semibold'
+            >Número de Teléfono:</label>
             <input 
-              type="number"
+              type="tel"
               id='phone_number'
-              name='phone_number'
-              ref={phoneNumberRef}
+              name='phone_numer'
               placeholder='Ingrese su Número de Teléfono'
-              className='rounded-md text-black w-full p-2' />
+              ref={phoneNumberRef}
+              className='rounded-md text-black w-full p-2 mt-2' />
           </div>
-          <div className='mt-3 flex justify-between gap-2'>
+          <div className='mb-5'>
             <label 
               htmlFor="password"
-              className='flex-none w-20'>Password: 
-            </label>
+              className='uppercase font-semibold'
+            >Password:</label>
             <input 
               type="password"
               id='password'
               name='password'
               ref={passwordRef}
-              placeholder='Ingrese su Contraseña'
-              className='rounded-md text-black w-full p-2' />
+              placeholder='Ingrese su contraseña'
+              className='rounded-md text-black w-full p-2 mt-2' />
           </div>
-          <div className='mt-3 flex justify-between gap-2'>
+          <div>
             <label 
               htmlFor="password_confirmation"
-              className='flex-none w-20'>Repetir Password: 
-            </label>
+              className='uppercase font-semibold'
+            >Repetir Password:</label>
             <input 
               type="password"
               id='password_confirmation'
               name='password_confirmation'
               ref={passwordConfirmationRef}
-              placeholder='Repetir Contraseña'
-              className='rounded-md text-black w-full p-2' />
+              placeholder='Repita su contraseña'
+              className='rounded-md text-black w-full p-2 mt-2' />
           </div>
-          <input 
+          <button 
             type="submit"
-            value='Crear Cuenta'
-            className='bg-blue-600 hover:bg-blue-800 transition-colors rounded font-bold p-2 mt-8 w-40'
-          />
-        </div>
-      </form>
+            className='bg-blue-600 hover:bg-blue-700 transition-colors rounded font-bold p-2 mt-10 w-full'>Crear Cuenta</button>
+        </form>
 
-      <div className='flex justify-between mt-10 gap-2 text-sm text-gray-400'>
-        <Link to="/">¿Ya Tienes una Cuenta? Inicia Sesión</Link>
-        <Link to="/auth/forgot-password">¿Olvidaste tu contraseña?</Link>
+        <div className='w-full flex md:flex-row md:justify-between flex-col items-center gap-2 my-10 text-sm text-gray-500 font-semibold '>
+          <Link 
+            className='hover:border-b border-blue-500'
+            to="/auth/login">¿Ya tienes una cuenta? Inicia Sesión</Link>
+          <Link 
+            className='hover:border-b border-blue-500'
+            to="#">¿Olvidaste tu contraseña?</Link>
+        </div>
       </div>
     </div>
   )
