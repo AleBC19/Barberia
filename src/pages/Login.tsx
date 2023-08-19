@@ -1,9 +1,13 @@
-import { createRef, useState } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axiosClient from '../config/axiosClient'
 import Alert from '../components/Alert'
 
 const Login = () => {
+  useEffect(() => {
+    document.title = 'Barber | Inicia Sesión'
+  }, [])
+
   const emailRef = createRef<HTMLInputElement>()
   const passwordRef = createRef<HTMLInputElement>()
 

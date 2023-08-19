@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const NavbarMenu = () => {
+const Header = () => {
   return (
     <header className='mt-6'>
       <div className='flex justify-between'>
@@ -17,26 +17,15 @@ const NavbarMenu = () => {
           </div>
 
           <div className='flex items-center gap-4 font-bold uppercase'>
-            <Link to='#'>Mis Citas</Link>
+            <Link to='/reservaciones'>Mis Citas</Link>
             <Link 
               className='bg-blue-600 hover:bg-blue-700 hover:transition-colors rounded p-2'
-              to='#'>Nueva Cita</Link>
+              to='/reservaciones/nueva'>Nueva Cita</Link>
           </div>
         </div>
-      </div>
-      
-      <div className='flex items-center justify-center mt-7  px-2'>
-        <nav className='w-11/12 flex justify-around gap-2'>
-          <Link 
-            className='bg-blue-600 hover:bg-blue-700 hover:transition-colors rounded w-full text-center uppercase font-bold py-3' 
-            to='/services'>Servicios</Link>
-          <Link 
-            className='bg-blue-600 hover:bg-blue-700 hover:transition-colors rounded w-full text-center uppercase font-bold py-3' 
-            to='/resumen'>Citas y Resumen</Link>
-        </nav>
       </div>
     </header>
   )
 }
 
-export default NavbarMenu
+export default Header

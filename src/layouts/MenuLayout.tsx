@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import ImgLayout from './ImgLayout'
-import NavbarMenu from '../components/NavbarMenu'
+import Header from '../components/Header'
 
 const MenuLayout = () => {
   return (
@@ -8,7 +8,7 @@ const MenuLayout = () => {
       <ImgLayout/>
 
       <section className='w-full'>
-        <NavbarMenu/>
+        <Header/>
         <Outlet />
       </section>
     

@@ -4,6 +4,7 @@ import Register from './pages/Register'
 import MainLayout from './layouts/MainLayout'
 import MenuLayout from './layouts/MenuLayout'
 import Reservations from './pages/Reservations'
+import CreateReservation from './pages/CreateReservation'
 
 const router = createBrowserRouter([
   {
@@ -11,8 +12,13 @@ const router = createBrowserRouter([
     element: <MenuLayout/>, 
     children: [
       {
-        index: true, 
+        index: true,
+        path: '/reservaciones',
         element: <Reservations/>
+      },
+      {
+        path: '/reservaciones/nueva',
+        element: <CreateReservation/>
       }
     ]
   },

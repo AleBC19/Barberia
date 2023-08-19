@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
-import { createRef, useState } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import axiosClient from '../config/axiosClient'
 import Alert from '../components/Alert'
 
 const Register = () => {
+  useEffect(() => {
+    document.title = 'Barber | Crear Cuenta'
+  }, [])
+
   const emailRef = createRef<HTMLInputElement>()
   const nameRef = createRef<HTMLInputElement>()
   const phoneNumberRef = createRef<HTMLInputElement>()
