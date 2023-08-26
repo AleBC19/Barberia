@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <header className='mt-6'>
-      <div className='flex justify-between'>
+    <header className='mt-6 md:w-full'>
+      <div className='md:flex justify-between'>
         <h1 className='font-black text-5xl px-4'>AppSalon</h1>
 
         <div className='flex flex-col gap-5 px-3'>
