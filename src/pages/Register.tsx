@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { createRef, useEffect, useState } from 'react'
 import axiosClient from '../config/axiosClient'
 import Alert from '../components/Alert'
+import { AuthData } from '../types'
 
 const Register = () => {
   useEffect(() => {

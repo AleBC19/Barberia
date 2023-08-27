@@ -9,6 +9,13 @@ export interface AuthData {
   password_confirmation?: string
 }
 
+export interface PropsUseAuth {
+  middleware: Middleware
+  url?: Url
+}
+
+export type Middleware = 'guest' | 'auth'
+export type Url = '/' | '/auth/login'
 export interface GetServiceResponse {
   data: Service[]
 }

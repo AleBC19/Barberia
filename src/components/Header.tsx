@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+
+  const logout = () => {
+    console.log('logged out')
+  }
+
   return (
     <header className='mt-6 md:w-full'>
       <div className='md:flex justify-between'>
@@ -9,11 +14,11 @@ const Header = () => {
         <div className='flex flex-col gap-5 px-3'>
           <div className='flex items-center gap-3'>
             <p>Hola: <span className='font-semibold'>Rob</span></p>
-            <input 
-              type="submit"
+            <button
+              onClick={logout}
               value='Cerrar Sesión'
               className='bg-red-600 hover:bg-red-700 cursor-pointer px-2 py-1 rounded font-bold'
-            />
+            >Cerrar Sesión</button>
           </div>
 
           <div className='flex items-center gap-4 font-bold uppercase'>

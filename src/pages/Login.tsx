@@ -1,12 +1,17 @@
 import { createRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axiosClient from '../config/axiosClient'
 import Alert from '../components/Alert'
+import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
   useEffect(() => {
     document.title = 'Barber | Inicia Sesión'
   }, [])
+
+  const { login } = useAuth({
+    middleware: 'guest',
+    url: '/'
+  })
 
   const emailRef = createRef<HTMLInputElement>()
   const passwordRef = createRef<HTMLInputElement>()
@@ -21,13 +26,8 @@ const Login = () => {
       password: passwordRef.current?.value,
     }
 
-    try {
-      const { data } = await axiosClient.post('/login', datos)
-      localStorage.setItem('AUTH_TOKEN', data.token)
-      setErrors([])
-    } catch (error) {
-      setErrors(Object.values(error.response.data.errors))
-    }
+    login(datos, setErrors)
+
   }
 
   return (

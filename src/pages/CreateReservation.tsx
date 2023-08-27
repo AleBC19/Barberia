@@ -9,9 +9,10 @@ const CreateReservation = () => {
   const route = useLocation()
 
   const isPageNewReservation = route.pathname === URLS.services
-  const stylesLink = isPageNewReservation ? STYLES_NAV_LINK.isActive : STYLES_NAV_LINK.notActive
+  const stylesLink = isPageNewReservation 
+    ? STYLES_NAV_LINK.isActive 
+    : STYLES_NAV_LINK.notActive
 
-  
   return (
     <>
       <div className='flex items-center justify-center mt-7  px-2'>
