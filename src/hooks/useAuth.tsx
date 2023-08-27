@@ -22,7 +22,7 @@ export const useAuth = ({ middleware, url }: PropsUseAuth) => {
   )
   
   const login = async (
-    datos: AuthData, 
+    datos: AuthData,
     setErrors: React.Dispatch<React.SetStateAction<never[]>>
   ) => {
     try {
@@ -35,12 +35,32 @@ export const useAuth = ({ middleware, url }: PropsUseAuth) => {
     }
   }
 
-  const register = async () => {
-
+  const register = async (
+    datos: AuthData,
+    setErrors: React.Dispatch<React.SetStateAction<never[]>>
+  ) => {
+    try {
+      const { data } = await axiosClient.post('/register', datos)
+      localStorage.setItem('AUTH_TOKEN', data.token)
+      setErrors([])
+      await mutate()
+    } catch (error) {
+      setErrors(Object.values(error.response.data.errors))
+    }
   }
 
   const logout = async () => {
-
+    try {
+      await axiosClient.post('/logout', null, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      localStorage.removeItem('AUTH_TOKEN')
+      await mutate(undefined)
+    } catch (error) {
+      throw Error(error?.response?.data?.errors)
+    }
   }
 
   useEffect(() => {

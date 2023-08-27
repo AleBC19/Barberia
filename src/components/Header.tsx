@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 const Header = () => {
 
-  const logout = () => {
-    console.log('logged out')
-  }
+  const { logout, user } = useAuth({ middleware: 'auth' })
+
+  console.log(user)
 
   return (
     <header className='mt-6 md:w-full'>
@@ -13,7 +14,7 @@ const Header = () => {
 
         <div className='flex flex-col gap-5 px-3'>
           <div className='flex items-center gap-3'>
-            <p>Hola: <span className='font-semibold'>Rob</span></p>
+            <p>Hola: <span className='font-semibold'>{ user?.name }</span></p>
             <button
               onClick={logout}
               value='Cerrar Sesión'

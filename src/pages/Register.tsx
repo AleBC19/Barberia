@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom'
 import { createRef, useEffect, useState } from 'react'
-import axiosClient from '../config/axiosClient'
 import Alert from '../components/Alert'
 import { AuthData } from '../types'
+import { useAuth } from '../hooks/useAuth'
 
 const Register = () => {
   useEffect(() => {
     document.title = 'Barber | Crear Cuenta'
   }, [])
+
+  const { register } = useAuth({ middleware: 'guest', url: '/' })
 
   const emailRef = createRef<HTMLInputElement>()
   const nameRef = createRef<HTMLInputElement>()
@@ -28,12 +30,7 @@ const Register = () => {
       password_confirmation: passwordConfirmationRef.current?.value
     }
 
-    try {
-      const { data } = await axiosClient.post('/register', datos)
-      console.log(data.token)
-    } catch (error) {
-      setErrors(Object.values(error.response.data.errors))
-    }
+    register(datos, setErrors)
   }
 
   return (
