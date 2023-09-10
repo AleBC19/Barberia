@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { createRef, useEffect, useState } from 'react'
 import Alert from '../components/Alert'
-import { AuthData } from '../types'
+import { type AuthData } from '../types'
 import { useAuth } from '../hooks/useAuth'
 
 const Register = () => {
